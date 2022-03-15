@@ -78,14 +78,17 @@ class Creative_Button extends Widget_Base
         $this->add_control(
             'button_link',
             [
-                'label' => __('Link', 'widgetpack-for-elementor'),
+                'label' => esc_html__('Link', 'widgetpack-for-elementor'),
                 'type' => Controls_Manager::URL,
                 'dynamic' => [
                     'active' => true,
                 ],
-                'placeholder' => __('https://your-link.com', 'widgetpack-for-elementor'),
+                'placeholder' => esc_html__('https://your-link.com', 'widgetpack-for-elementor'),
                 'default' => [
-                    'url' => '#',
+                    'url' => '',
+                    'is_external' => true,
+                    'nofollow' => true,
+                    'custom_attributes' => '',
                 ],
             ]
         );
@@ -243,15 +246,19 @@ class Creative_Button extends Widget_Base
 
         // get our input from the widget settings.
         $settings = $this->get_settings_for_display();
-        //~ print_r($settings);
-        $button_text = !empty($settings['button_text']) ? $settings['button_text'] : 'Learn More';
-        $button_url = !empty($settings['button_url']) ? $settings['button_url'] : '#';
-        $button_icon = $settings['button_icon'];
 
+        //Button parameters
+        $button_text = !empty($settings['button_text']) ? $settings['button_text'] : 'Learn More';
+        $button_url = !empty($settings['button_link']) ? $settings['button_link']['url'] : '#';
+        $button_icon = $settings['button_icon'];
+        $new_tab = !empty($settings['button_link']['is_external']) ? '_blank' : '';
+        $follow =!empty($settings['button_link']['nofollow']) ? 'nofollow' : '';
         ?>
-        <a href="<?php echo esc_attr($button_url['url']); ?>"
+        <a href="<?php echo esc_attr($button_url); ?>"
            class="creative_button <?php echo esc_attr($settings['button_class']); ?>"
-           id="<?php echo esc_attr($settings['button_id']); ?>">
+           id="<?php echo esc_attr($settings['button_id']); ?>"
+           rel="<?php echo $follow?>"
+           target="<?php echo $new_tab ?>">
             <span><?php echo esc_html($button_text); ?></span>
             <?php
             if (!empty($button_icon['value'])) {
@@ -312,6 +319,11 @@ class Creative_Button extends Widget_Base
         <?php
     }
 
-    protected function content_template() {}
-    public function render_plain_content( $instance = [] ) {}
+    protected function content_template()
+    {
+    }
+
+    public function render_plain_content($instance = [])
+    {
+    }
 }
