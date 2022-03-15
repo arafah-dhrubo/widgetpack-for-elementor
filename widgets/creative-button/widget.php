@@ -111,7 +111,6 @@ class Creative_Button extends Widget_Base
                 'default' => '',
             ]
         );
-
 //        Icon Spacing
         $this->add_control(
             'icon_spacing', [
@@ -125,6 +124,21 @@ class Creative_Button extends Widget_Base
                         'max' => 50,
                     ],
                 ],
+                'condition' => [
+                    'button_icon!' => ''
+                ]
+            ]
+        );
+
+//        Icon Size
+        $this->add_control(
+            'icon_size', [
+                'label' => esc_html__('Icon Size', 'widgetpack-for-elementor'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'default' => [
+                    'size' => 25,
+                ],
+
                 'condition' => [
                     'button_icon!' => ''
                 ]
@@ -256,7 +270,6 @@ class Creative_Button extends Widget_Base
         $button_icon = $settings['button_icon'];
         $new_tab = !empty($settings['button_link']['is_external']) ? '_blank' : '';
         $follow = !empty($settings['button_link']['nofollow']) ? 'nofollow' : '';
-        var_dump($settings['icon_spacing']);
         ?>
         <div style="width: 100%">
             <a href="<?php echo esc_attr($button_url); ?>"
@@ -277,12 +290,9 @@ class Creative_Button extends Widget_Base
         </div>
         <style>
             a.creative_button {
-                width: min-content;
-                echo $ settings ['button_size'] ['unit'] ? >;
                 display: flex;
                 align-items: center;
                 justify-content: <?php echo $settings['button_align'] ?>;
-                background: <?php echo esc_attr($settings['bg_color']); ?>;
             }
 
             .not_visible {
@@ -291,26 +301,23 @@ class Creative_Button extends Widget_Base
             }
 
             a.creative_button span {
-                padding: 5px 25px;
+                padding: 8px 25px;
                 font-size: 16px;
-                display: table-cell;
                 color: <?php echo esc_attr($settings['button_text_color']); ?>;
                 width: max-content;
-                echo $ settings ['button_size'] ['unit'];
-                ? >;
-            }
-
-            a.creative_button:hover {
-                background: <?php echo esc_attr($settings['bg_hover_color']); ?>;
+                background: <?php echo esc_attr($settings['bg_color']); ?>;
             }
 
             a.creative_button:hover span {
                 color: <?php echo esc_attr($settings['button_hover_text_color']); ?>;
+                background: <?php echo esc_attr($settings['bg_hover_color']); ?>;
             }
 
             a.creative_button i {
                 padding: 12px;
+                width: <?php echo $settings['icon_size']['size']; ?>px;
                 color: <?php echo esc_attr($settings['button_icon_color']); ?>;
+                background: <?php echo esc_attr($settings['bg_color']); ?>;
             }
 
             a.creative_button img {
@@ -320,10 +327,11 @@ class Creative_Button extends Widget_Base
 
             a.creative_button:hover i {
                 color: <?php echo esc_attr($settings['button_hover_icon_color']); ?>;
+                background: <?php echo esc_attr($settings['bg_hover_color']); ?>;
             }
 
             a.creative_button:hover img {
-                color: <?php echo esc_attr($settings['button_hover_icon_color']); ?>;
+                color: <?php echo esc_attr($settings['button_hover_color']); ?>;
             }
         </style>
         <?php
