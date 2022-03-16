@@ -117,7 +117,7 @@ class Creative_Button extends Widget_Base
                 'label' => esc_html__('Icon Spacing', 'widgetpack-for-elementor'),
                 'type' => \Elementor\Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 16,
+                    'size' => 0,
                 ],
                 'range' => [
                     'px' => [
@@ -159,6 +159,22 @@ class Creative_Button extends Widget_Base
                 'condition' => [
                     'button_icon!' => ''
                 ]
+            ]
+        );
+
+//        Border Style
+        $this->add_control(
+            'border_style',
+            ['label'   => __( 'Border Style', 'plugin-domain' ),
+                'type'    => \Elementor\Controls_Manager::SELECT,
+                'default' => 'solid',
+                'options' => array(
+                    'solid'  => __( 'Solid', 'widgetpack-for-elementor' ),
+                    'dashed' => __( 'Dashed', 'widgetpack-for-elementor' ),
+                    'dotted' => __( 'Dotted', 'widgetpack-for-elementor' ),
+                    'double' => __( 'Double', 'widgetpack-for-elementor' ),
+                    'none'   => __( 'None', 'widgetpack-for-elementor' )
+                )
             ]
         );
 
@@ -204,6 +220,15 @@ class Creative_Button extends Widget_Base
             ]
         );
 
+//        Border color
+        $this->add_control(
+            'border_color',
+            [
+                'label' => __('Border Color', 'widgetpack-for-elementor'),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#6EC1E4',
+            ]
+        );
 //        button hover color
         $this->add_control(
             'bg_hover_color',
@@ -271,7 +296,7 @@ class Creative_Button extends Widget_Base
         $new_tab = !empty($settings['button_link']['is_external']) ? '_blank' : '';
         $follow = !empty($settings['button_link']['nofollow']) ? 'nofollow' : '';
         ?>
-        <div style="width: 100%">
+        <div class="creative_button_container">
             <a href="<?php echo esc_attr($button_url); ?>"
                class="creative_button <?php echo esc_attr($settings['button_class']); ?>"
                id="<?php echo esc_attr($settings['button_id']); ?>"
@@ -289,10 +314,17 @@ class Creative_Button extends Widget_Base
             </a>
         </div>
         <style>
-            a.creative_button {
+            .creative_button_container {
                 display: flex;
                 align-items: center;
                 justify-content: <?php echo $settings['button_align'] ?>;
+            }
+
+            a.creative_button{
+                padding: 8px 25px;
+                border: <?php echo $settings['border_style']?>;
+                border-color: <?php echo $settings['border_color']?>;
+                background: <?php echo esc_attr($settings['bg_color']); ?>;
             }
 
             .not_visible {
@@ -301,23 +333,22 @@ class Creative_Button extends Widget_Base
             }
 
             a.creative_button span {
-                padding: 8px 25px;
                 font-size: 16px;
                 color: <?php echo esc_attr($settings['button_text_color']); ?>;
                 width: max-content;
-                background: <?php echo esc_attr($settings['bg_color']); ?>;
+            }
+
+            a.creative_button:hover{
+                background: <?php echo esc_attr($settings['bg_hover_color']); ?>;
             }
 
             a.creative_button:hover span {
                 color: <?php echo esc_attr($settings['button_hover_text_color']); ?>;
-                background: <?php echo esc_attr($settings['bg_hover_color']); ?>;
             }
 
             a.creative_button i {
-                padding: 12px;
                 width: <?php echo $settings['icon_size']['size']; ?>px;
                 color: <?php echo esc_attr($settings['button_icon_color']); ?>;
-                background: <?php echo esc_attr($settings['bg_color']); ?>;
             }
 
             a.creative_button img {
@@ -327,7 +358,6 @@ class Creative_Button extends Widget_Base
 
             a.creative_button:hover i {
                 color: <?php echo esc_attr($settings['button_hover_icon_color']); ?>;
-                background: <?php echo esc_attr($settings['bg_hover_color']); ?>;
             }
 
             a.creative_button:hover img {
