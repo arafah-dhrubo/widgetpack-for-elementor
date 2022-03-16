@@ -292,7 +292,7 @@ $this->add_control(
 //        Ending  style section for Icon
         $this->end_controls_section();
 
-        //Tab for Border
+        //         Tab for Border
         $this->start_controls_section(
             'border_style_tab',
             [
@@ -304,7 +304,7 @@ $this->add_control(
             ]
         );
 
-        //        Border color
+        //        Border Color
         $this->add_control(
             'border_color',
             [
@@ -317,7 +317,7 @@ $this->add_control(
             ]
         );
 
-
+//        Border Radius
         $this->add_control(
             'button_border_radius',
             [
@@ -332,6 +332,23 @@ $this->add_control(
                 ]
             ]
         );
+
+        //        Border Shadow
+        $this->add_control(
+            'button_border_shadow',
+            [
+                'label' => esc_html__( 'Border Shadow', 'widgetpack-for-elementor' ),
+                'type'  => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%' ],
+                'selectors'  => [
+                    '{{WRAPPER}} .creative_button' => 'box-shadow: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+                'condition' =>[
+                    'border_style!' => 'none'
+                ]
+            ]
+        );
+
 
 //        Ending  style section for Border
         $this->end_controls_section();
