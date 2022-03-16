@@ -40,7 +40,7 @@ class Creative_Button extends Widget_Base
     {
 //        Starting control section
         $this->start_controls_section(
-            'content_section',
+            'button_content',
             [
                 'label' => esc_html__('Button', 'widgetpack-for-elementor'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
@@ -57,6 +57,23 @@ class Creative_Button extends Widget_Base
                 'placeholder' => esc_html__('Click Here', 'widgetpack-for-elementor'),
             ]
         );
+
+
+//        Button Size
+$this->add_control(
+    'button_size', [
+        'label' => esc_html__('Button Size', 'widgetpack-for-elementor'),
+        'type' => Controls_Manager::SELECT,
+        'default' => 'md',
+        'options' => [
+            'xs' => esc_html__('Extra Small', 'widgetpack-for-elementor'),
+            'sm' => esc_html__('Small', 'widgetpack-for-elementor'),
+            'md' => esc_html__('Medium', 'widgetpack-for-elementor'),
+            'lg' => esc_html__('Large', 'widgetpack-for-elementor'),
+            'xl' => esc_html__('Extra Large', 'widgetpack-for-elementor'),
+        ],
+    ]
+);
 
 //        Button Link
         $this->add_control(
@@ -101,6 +118,18 @@ class Creative_Button extends Widget_Base
             ]
         );
 
+//        Ending  content section for button
+        $this->end_controls_section();
+
+        //Tab for Icon
+        $this->start_controls_section(
+            'icon_content',
+            [
+                'label' => esc_html__('Icon', 'widgetpack-for-elementor'),
+                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
 //        Button Icon
         $this->add_control(
             'button_icon',
@@ -111,34 +140,20 @@ class Creative_Button extends Widget_Base
                 'default' => '',
             ]
         );
+
 //        Icon Spacing
         $this->add_control(
             'icon_spacing', [
                 'label' => esc_html__('Icon Spacing', 'widgetpack-for-elementor'),
                 'type' => \Elementor\Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 16,
+                    'size' => 0,
                 ],
                 'range' => [
                     'px' => [
                         'max' => 50,
                     ],
                 ],
-                'condition' => [
-                    'button_icon!' => ''
-                ]
-            ]
-        );
-
-//        Icon Size
-        $this->add_control(
-            'icon_size', [
-                'label' => esc_html__('Icon Size', 'widgetpack-for-elementor'),
-                'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => [
-                    'size' => 25,
-                ],
-
                 'condition' => [
                     'button_icon!' => ''
                 ]
@@ -162,12 +177,40 @@ class Creative_Button extends Widget_Base
             ]
         );
 
+//        Ending  content section for Icon
+        $this->end_controls_section();
+
+//        Start Border Content
+        $this->start_controls_section(
+            'border_content',
+            [
+                'label' => esc_html__('Border', 'widgetpack-for-elementor'),
+                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
+//        Border Style
+        $this->add_control(
+            'border_style',
+            ['label' => __('Border Style', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'solid',
+                'options' => array(
+                    'solid' => __('Solid', 'widgetpack-for-elementor'),
+                    'dashed' => __('Dashed', 'widgetpack-for-elementor'),
+                    'dotted' => __('Dotted', 'widgetpack-for-elementor'),
+                    'double' => __('Double', 'widgetpack-for-elementor'),
+                    'none' => __('None', 'widgetpack-for-elementor')
+                )
+            ]
+        );
+
 //        Ending  content section
         $this->end_controls_section();
 
 //        Staring style tab
         $this->start_controls_section(
-            'section_style_thumbnail',
+            'button_style',
             [
                 'label' => esc_html__('Button', 'widgetpack-for-elementor'),
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
@@ -214,6 +257,18 @@ class Creative_Button extends Widget_Base
             ]
         );
 
+//        Ending  style section for button
+        $this->end_controls_section();
+
+        //Tab for Icon
+        $this->start_controls_section(
+            'icon_style',
+            [
+                'label' => esc_html__('Icon', 'widgetpack-for-elementor'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
 //        Button Icon Color
         $this->add_control(
             'button_icon_color',
@@ -234,7 +289,80 @@ class Creative_Button extends Widget_Base
             ]
         );
 
-//        Button class
+//        Ending  style section for Icon
+        $this->end_controls_section();
+
+        //         Tab for Border
+        $this->start_controls_section(
+            'border_style_tab',
+            [
+                'label' => esc_html__('Border', 'widgetpack-for-elementor'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                'condition' => [
+                    'border_style!' => 'none'
+                ]
+            ]
+        );
+
+        //        Border Color
+        $this->add_control(
+            'border_color',
+            [
+                'label' => __('Border Color', 'widgetpack-for-elementor'),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#6EC1E4',
+                'condition' => [
+                    'border_style!' => 'none'
+                ]
+            ]
+        );
+
+//        Border Radius
+        $this->add_control(
+            'button_border_radius',
+            [
+                'label' => esc_html__( 'Border Radius', 'widgetpack-for-elementor' ),
+                'type'  => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%' ],
+                'selectors'  => [
+                    '{{WRAPPER}} .creative_button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+                'condition' =>[
+                    'border_style!' => 'none'
+                ]
+            ]
+        );
+
+        //        Border Shadow
+        $this->add_control(
+            'button_border_shadow',
+            [
+                'label' => esc_html__( 'Border Shadow', 'widgetpack-for-elementor' ),
+                'type'  => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%' ],
+                'selectors'  => [
+                    '{{WRAPPER}} .creative_button' => 'box-shadow: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+                'condition' =>[
+                    'border_style!' => 'none'
+                ]
+            ]
+        );
+
+
+//        Ending  style section for Border
+        $this->end_controls_section();
+
+        //Tab for MISC
+        $this->start_controls_section(
+            'misc_style',
+            [
+                'label' => esc_html__('MISC', 'widgetpack-for-elementor'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+        
+        //        Button class
         $this->add_control(
             'button_class',
             [
@@ -255,86 +383,13 @@ class Creative_Button extends Widget_Base
                 'title' => __('Enter Button ID', 'widgetpack-for-elementor'),
             ]
         );
+
         $this->end_controls_section();
     }
 
     protected function render()
     {
-
-        // get our input from the widget settings.
-        $settings = $this->get_settings_for_display();
-
-        //Button parameters
-        $button_text = !empty($settings['button_text']) ? $settings['button_text'] : 'Learn More';
-        $button_url = !empty($settings['button_link']) ? $settings['button_link']['url'] : '#';
-        $button_icon = $settings['button_icon'];
-        $new_tab = !empty($settings['button_link']['is_external']) ? '_blank' : '';
-        $follow = !empty($settings['button_link']['nofollow']) ? 'nofollow' : '';
-        ?>
-        <div style="width: 100%">
-            <a href="<?php echo esc_attr($button_url); ?>"
-               class="creative_button <?php echo esc_attr($settings['button_class']); ?>"
-               id="<?php echo esc_attr($settings['button_id']); ?>"
-               rel="<?php echo $follow ?>"
-               target="<?php echo $new_tab ?>">
-                <i class="
-            <?php echo $settings['button_icon_align'] == "left" ? $button_icon : "not_visible" ?>"
-                   style="padding-right: <?php echo $settings['icon_spacing']['size'];
-                   echo $settings['icon_spacing']['unit']; ?>"></i>
-                <span class="button-text"><?php echo esc_html($button_text); ?></span>
-                <i class="
-            <?php echo $settings['button_icon_align'] == "right" ? $button_icon : "not_visible" ?>"
-                   style="padding-left: <?php echo $settings['icon_spacing']['size'];
-                   echo $settings['icon_spacing']['unit']; ?>"></i>
-            </a>
-        </div>
-        <style>
-            a.creative_button {
-                display: flex;
-                align-items: center;
-                justify-content: <?php echo $settings['button_align'] ?>;
-            }
-
-            .not_visible {
-                display: none !important;
-
-            }
-
-            a.creative_button span {
-                padding: 8px 25px;
-                font-size: 16px;
-                color: <?php echo esc_attr($settings['button_text_color']); ?>;
-                width: max-content;
-                background: <?php echo esc_attr($settings['bg_color']); ?>;
-            }
-
-            a.creative_button:hover span {
-                color: <?php echo esc_attr($settings['button_hover_text_color']); ?>;
-                background: <?php echo esc_attr($settings['bg_hover_color']); ?>;
-            }
-
-            a.creative_button i {
-                padding: 12px;
-                width: <?php echo $settings['icon_size']['size']; ?>px;
-                color: <?php echo esc_attr($settings['button_icon_color']); ?>;
-                background: <?php echo esc_attr($settings['bg_color']); ?>;
-            }
-
-            a.creative_button img {
-                padding: 12px;
-                display: table-cell;
-            }
-
-            a.creative_button:hover i {
-                color: <?php echo esc_attr($settings['button_hover_icon_color']); ?>;
-                background: <?php echo esc_attr($settings['bg_hover_color']); ?>;
-            }
-
-            a.creative_button:hover img {
-                color: <?php echo esc_attr($settings['button_hover_color']); ?>;
-            }
-        </style>
-        <?php
+    require 'template.php';
     }
 
     protected function content_template()
