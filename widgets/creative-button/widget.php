@@ -40,7 +40,7 @@ class Creative_Button extends Widget_Base
     {
 //        Starting control section
         $this->start_controls_section(
-            'content_section',
+            'button_content',
             [
                 'label' => esc_html__('Button', 'widgetpack-for-elementor'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
@@ -101,6 +101,18 @@ class Creative_Button extends Widget_Base
             ]
         );
 
+//        Ending  content section for button
+        $this->end_controls_section();
+
+        //Tab for Icon
+        $this->start_controls_section(
+            'icon_content',
+            [
+                'label' => esc_html__('Icon', 'widgetpack-for-elementor'),
+                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
 //        Button Icon
         $this->add_control(
             'button_icon',
@@ -111,6 +123,7 @@ class Creative_Button extends Widget_Base
                 'default' => '',
             ]
         );
+
 //        Icon Spacing
         $this->add_control(
             'icon_spacing', [
@@ -162,18 +175,30 @@ class Creative_Button extends Widget_Base
             ]
         );
 
+//        Ending  content section for Icon
+        $this->end_controls_section();
+
+//        Start Border Content
+        $this->start_controls_section(
+            'border_content',
+            [
+                'label' => esc_html__('Border', 'widgetpack-for-elementor'),
+                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
 //        Border Style
         $this->add_control(
             'border_style',
-            ['label'   => __( 'Border Style', 'plugin-domain' ),
-                'type'    => \Elementor\Controls_Manager::SELECT,
+            ['label' => __('Border Style', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::SELECT,
                 'default' => 'solid',
                 'options' => array(
-                    'solid'  => __( 'Solid', 'widgetpack-for-elementor' ),
-                    'dashed' => __( 'Dashed', 'widgetpack-for-elementor' ),
-                    'dotted' => __( 'Dotted', 'widgetpack-for-elementor' ),
-                    'double' => __( 'Double', 'widgetpack-for-elementor' ),
-                    'none'   => __( 'None', 'widgetpack-for-elementor' )
+                    'solid' => __('Solid', 'widgetpack-for-elementor'),
+                    'dashed' => __('Dashed', 'widgetpack-for-elementor'),
+                    'dotted' => __('Dotted', 'widgetpack-for-elementor'),
+                    'double' => __('Double', 'widgetpack-for-elementor'),
+                    'none' => __('None', 'widgetpack-for-elementor')
                 )
             ]
         );
@@ -183,7 +208,7 @@ class Creative_Button extends Widget_Base
 
 //        Staring style tab
         $this->start_controls_section(
-            'section_style_thumbnail',
+            'button_style',
             [
                 'label' => esc_html__('Button', 'widgetpack-for-elementor'),
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
@@ -220,15 +245,6 @@ class Creative_Button extends Widget_Base
             ]
         );
 
-//        Border color
-        $this->add_control(
-            'border_color',
-            [
-                'label' => __('Border Color', 'widgetpack-for-elementor'),
-                'type' => Controls_Manager::COLOR,
-                'default' => '#6EC1E4',
-            ]
-        );
 //        button hover color
         $this->add_control(
             'bg_hover_color',
@@ -236,6 +252,18 @@ class Creative_Button extends Widget_Base
                 'label' => __('Background Hover Color', 'widgetpack-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '#61CE70',
+            ]
+        );
+
+//        Ending  style section for button
+        $this->end_controls_section();
+
+        //Tab for Icon
+        $this->start_controls_section(
+            'icon_style',
+            [
+                'label' => esc_html__('Icon', 'widgetpack-for-elementor'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
 
@@ -259,7 +287,47 @@ class Creative_Button extends Widget_Base
             ]
         );
 
-//        Button class
+//        Ending  style section for Icon
+        $this->end_controls_section();
+
+        //Tab for Border
+        $this->start_controls_section(
+            'border_style_tab',
+            [
+                'label' => esc_html__('Border', 'widgetpack-for-elementor'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                'condition' => [
+                    'border_style!' => 'none'
+                ]
+            ]
+        );
+
+        //        Border color
+        $this->add_control(
+            'border_color',
+            [
+                'label' => __('Border Color', 'widgetpack-for-elementor'),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#6EC1E4',
+                'condition' => [
+                    'border_style!' => 'none'
+                ]
+            ]
+        );
+
+//        Ending  style section for Border
+        $this->end_controls_section();
+
+        //Tab for MISC
+        $this->start_controls_section(
+            'misc_style',
+            [
+                'label' => esc_html__('MISC', 'widgetpack-for-elementor'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+        
+        //        Button class
         $this->add_control(
             'button_class',
             [
@@ -280,6 +348,7 @@ class Creative_Button extends Widget_Base
                 'title' => __('Enter Button ID', 'widgetpack-for-elementor'),
             ]
         );
+
         $this->end_controls_section();
     }
 
@@ -320,7 +389,7 @@ class Creative_Button extends Widget_Base
                 justify-content: <?php echo $settings['button_align'] ?>;
             }
 
-            a.creative_button{
+            a.creative_button {
                 padding: 8px 25px;
                 border: <?php echo $settings['border_style']?>;
                 border-color: <?php echo $settings['border_color']?>;
@@ -338,7 +407,7 @@ class Creative_Button extends Widget_Base
                 width: max-content;
             }
 
-            a.creative_button:hover{
+            a.creative_button:hover {
                 background: <?php echo esc_attr($settings['bg_hover_color']); ?>;
             }
 
