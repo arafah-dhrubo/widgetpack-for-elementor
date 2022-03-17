@@ -20,8 +20,11 @@ if( !defined( 'ABSPATH' ) ) exit;
 function WidgetPack_For_Elementor($widget_manager){
     require_once(__DIR__.'/widgets/creative-button/widget.php');
     require_once(__DIR__.'/widgets/call-to-action/widget.php');
+    require_once(__DIR__.'/widgets/split-heading/widget.php');
+
     $widget_manager->register(new \Creative_Button());
     $widget_manager->register(new \Call_To_Action());
+    $widget_manager->register(new \Split_Heading());
 
 }
 add_action('elementor/widgets/register', 'WidgetPack_For_Elementor');
