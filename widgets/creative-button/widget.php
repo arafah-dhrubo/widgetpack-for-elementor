@@ -59,21 +59,21 @@ class Creative_Button extends Widget_Base
         );
 
 
-//        Button Size
-$this->add_control(
-    'button_size', [
-        'label' => esc_html__('Button Size', 'widgetpack-for-elementor'),
-        'type' => Controls_Manager::SELECT,
-        'default' => 'md',
-        'options' => [
-            'xs' => esc_html__('Extra Small', 'widgetpack-for-elementor'),
-            'sm' => esc_html__('Small', 'widgetpack-for-elementor'),
-            'md' => esc_html__('Medium', 'widgetpack-for-elementor'),
-            'lg' => esc_html__('Large', 'widgetpack-for-elementor'),
-            'xl' => esc_html__('Extra Large', 'widgetpack-for-elementor'),
-        ],
-    ]
-);
+        //        Button Size
+        $this->add_control(
+            'button_size', [
+                'label' => esc_html__('Button Size', 'widgetpack-for-elementor'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'md',
+                'options' => [
+                    'xs' => esc_html__('Extra Small', 'widgetpack-for-elementor'),
+                    'sm' => esc_html__('Small', 'widgetpack-for-elementor'),
+                    'md' => esc_html__('Medium', 'widgetpack-for-elementor'),
+                    'lg' => esc_html__('Large', 'widgetpack-for-elementor'),
+                    'xl' => esc_html__('Extra Large', 'widgetpack-for-elementor'),
+                ],
+            ]
+        );
 
 //        Button Link
         $this->add_control(
@@ -389,7 +389,7 @@ $this->add_control(
 
     protected function render()
     {
-    require 'template.php';
+        require 'template.php';
     }
 
     protected function content_template()
